@@ -151,6 +151,45 @@ class SubscriptionComponent extends Component {
 MUTATION
 ---------------------------
 
+const ProfileWithData = graphql(gqlMutation, {
+    options: (ownProps) => (
+        { 
+            variables: { 
+                id: ownProps.id ,
+                text: newText
+            },
+            name: 'customName',
+            optimisticResponse: {      
+              createTodo: {
+                id: -1, // A temporary id. The server decides the real id.
+                text: newText,
+                completed: false,
+              },
+            },
+            update: (proxy, { data: { createTodo } }) => {
+              const data = proxy.readQuery({ query });
+              data.todos.push(createTodo);
+              proxy.writeQuery({ query, data });
+            },
+            refetchQueries: [
+              {
+                query: 'CommentList', 
+              },
+              {
+                query: 'Post', // Query name in gql schema
+                variables: {
+                  id: ownProps.id,
+                }
+              }
+            ],
+        }),
+    props: ({ ownProps, mutate }) => ({
+      submit: (props) => mutate(options),
+  })
+
+})(Profile);
+
+
 Multiple mutations
 
 import { compose } from 'react-apollo';

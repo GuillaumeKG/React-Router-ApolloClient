@@ -9,7 +9,7 @@ import './Post.scss'
 /******************************************* */
 // Define Query / Mutation / Subscription
 const postQuery = gql`
- query postQuery($id: Int!){
+ query postQuery($id: ID!){
    post(id:$id) {
      id
      title
