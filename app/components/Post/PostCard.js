@@ -20,35 +20,36 @@ const submitVote = gql`
   }
 `
 
-const Post = ({data, submit}) => {
-  console.log(data)
-  console.log(submit)
+const Post = (data) => {
+  let {post, submit} = data
+  //console.log(post)
+  //console.log(submit)
   return (
     <Card
       className="hoverable"
       header={
         <div className="right-align">
-          <Link to={'/Post/' + data.id}>
-            <CardTitle reveal image={data.imgUrl} waves='light' >
+          <Link to={'/Post/' + post.id}>
+            <CardTitle reveal image={post.imgUrl} waves='light' >
             </CardTitle>
           </Link>
           <Button floating className='grey' waves='light' icon='favorite' />
           &nbsp;
-            <Button floating className='grey' waves='light' icon='thumb_up' onClick={()=>submit(data.id)} />
+            <Button floating className='grey' waves='light' icon='thumb_up' onClick={()=>submit(post.id)} />
           &nbsp;
         </div>
       }
-      title={data.title}
+      title={post.title}
       reveal={
         <div>
           <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          {data.keywords.map((kwd, idx) => <Tag key={idx}>{kwd}</Tag>)}
+          {post.keywords.map((kwd, idx) => <Tag key={idx}>{kwd}</Tag>)}
         </div>
       }
     >
       <Chip>
         <img src='https://placeimg.com/320/240/nature' alt='Contact Person' />
-        {data.author.firstName} {data.author.lastName}
+        {post.author.firstName} {post.author.lastName}
       </Chip>
     </Card>
 
@@ -58,6 +59,10 @@ const Post = ({data, submit}) => {
 // Wrap react component(s) with data through High Order Component
 export default graphql(submitVote, {
   props: ({ mutate }) => ({
-    submit: (id) => mutate({ variables: { id } }),
+    submit: (id) => mutate(
+      { 
+        variables: { id },
+      }
+    ),
   }),
 })(Post);

@@ -24,10 +24,9 @@ const postQuery = gql`
  }
 `
 
-const PostDetails = ({ data: { loading, error, post }, match }) => {
+const PostDetails = ({ data: { loading, error, post}, match }) => {
   console.log('PostDetails Component')
-  //console.log(post)
-  //console.log(match)
+  // console.log(post)
 
   if (loading) {
     return <p>Loading... </p>
@@ -52,7 +51,7 @@ const PostDetails = ({ data: { loading, error, post }, match }) => {
           {post.title}
           <br/> {post.votes} like(s)
         </div>
-        <div class="divider"></div>
+        <div className="divider"></div>
         <div className="section comments">
           Comments
         </div>

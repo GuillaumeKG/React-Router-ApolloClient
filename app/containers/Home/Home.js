@@ -29,9 +29,12 @@ const postsListQuery = gql`
  }
 `
 
-function Home({ data: { loading, error, posts }, match }) {
+function Home({ data, match }) {
+  let { loading, error, posts } = data
   console.log('Home Component')
+  console.log(data)
   if (loading) {
+    console.log('loading')
     return <p>Loading... </p>
   }
   if (error) {
@@ -40,6 +43,9 @@ function Home({ data: { loading, error, posts }, match }) {
   if (posts === null) {
     return <p>No Data </p>
   }
+
+  console.log('result')
+
   return (
     <div className="home" >
       <PostList list={posts} />
