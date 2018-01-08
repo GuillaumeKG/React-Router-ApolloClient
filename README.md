@@ -180,3 +180,23 @@ const CommentPageWithData = graphql(submitComment, {
     }),
   }),
 })(CommentPage);
+
+// Update cache immediately after mutation
+// createTodo: gql mutation
+// todosQuery: gql query
+// todos: name of the query in schemas
+export default graphql(submitVote, {
+  props: ({ mutate }) => ({
+    submit: (id) => mutate(
+      { 
+        variables: { id },
+        update:(proxy, { data: { createTodo}}) => {
+           const data = proxy.readQuery({query: TodosQuery})
+           
+           data.todos.push(createTodo)
+           proxy.writeQuery({query: TodosQuery, data})
+        },
+      }
+    ),
+  }),
+})(Post);
