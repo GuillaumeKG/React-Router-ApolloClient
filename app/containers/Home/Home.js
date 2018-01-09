@@ -42,9 +42,9 @@ const voteSub = gql`
 class Home extends React.Component {
   componentWillMount() {
     console.log(' Home - componentWillMount')
-    /*this.props.subscribeToNewVote({
+    this.props.subscribeToNewVote({
       id: 1,
-    })*/
+    })
   }
 
   render() {
