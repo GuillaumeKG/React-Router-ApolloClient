@@ -20,7 +20,7 @@ Persitence
   AsyncStorage (React Native)
   localForage (Web) https://github.com/localForage/localForage
 
-import { persistCache } from 'apollo-cache-persist'
+`import { persistCache } from 'apollo-cache-persist'
 
 const cache = new InMemoryCache({
   addTypename: true,
@@ -45,7 +45,7 @@ const cache = new InMemoryCache({
 persistCache({
   cache,
   storage: localStorage,
-})
+})`
 
 *********
   LINK
