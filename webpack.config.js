@@ -1,8 +1,9 @@
 var webpack = require('webpack');
 var path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const dev = process.env.NODE_ENV === "dev"
 
-module.exports = {
+let config = {
     entry: [
         path.join(__dirname, './index.js')
     ],
@@ -11,6 +12,7 @@ module.exports = {
         publicPath: '/',
         filename: 'bundle.js'
     },
+    devtool: dev ? "cheap-module-eval-source-map" : "source-map", 
     module: {
         loaders: [{
             test: /\.(js|jsx)$/,
@@ -24,7 +26,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new UglifyJsPlugin()
     ],
 
     resolve: {
@@ -35,3 +36,11 @@ module.exports = {
         historyApiFallback: true
     }
 }
+
+if(!dev){
+    config.plugins.push(new UglifyJsPlugin({
+        //sourceMap: true
+    }))
+}
+
+module.exports = config

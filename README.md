@@ -168,6 +168,7 @@ const ProfileWithData = graphql(CurrentUserForLayout, {
 // Can call multiple queries in 1 gql
 const postsListQuery = gql`
  query ($id: Int!){
+   # comment
    posts {
      id
      title

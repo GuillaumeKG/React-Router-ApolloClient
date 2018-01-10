@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { Link } from 'react-router-dom'
 import gql from 'graphql-tag'
@@ -7,7 +6,7 @@ import { Button } from 'react-materialize'
 
 import PostList from '../../components/Post/PostList'
 
-import './Home.scss';
+import './Home.scss'
 
 /******************************************* */
 /*         GRAPHQL QUERIES HANDLING          */
@@ -40,6 +39,7 @@ const voteSub = gql`
 `
 
 class Home extends React.Component {
+
   componentWillMount() {
     console.log(' Home - componentWillMount')
     this.props.subscribeToNewVote({
