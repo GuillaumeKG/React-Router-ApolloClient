@@ -1,0 +1,12 @@
+{
+  "presets": [
+    "stage-2",
+    "react",
+    "env"
+  ],
+  "plugins": [
+    "babel-plugin-inline-import",
+    "babel-plugin-transform-object-rest-spread"
+  ],
+  "ignore": ["node_modules/**"]
+}

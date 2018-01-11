@@ -50,3 +50,27 @@
   .comments{
   }
 }
+
+.createPostSection{
+  display:flex;
+  flex-direction: row;
+  width:95%;
+  margin: auto auto;
+
+  .uploadZone{
+    border: 1px solid black;
+
+    .dropZone{
+        height: 400px;
+        width: 200px;
+        background-color: #777777;
+    }
+
+  }
+
+  .fieldZone{
+    border: 1px solid black;
+
+  }
+
+}

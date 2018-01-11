@@ -1,0 +1,14 @@
+.loginContainer{
+  height: calc(100vh - 50px);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  .loginForm{
+    width:400px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    background-color: rgba($color: #ffffff, $alpha: 0.8);
+    border: solid rgb(136, 134, 134) 1px;
+  }
+}

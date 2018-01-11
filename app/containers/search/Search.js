@@ -8,15 +8,15 @@ import FixedActionBtn from 'Components/FixedActionBtn/FixedActionBtn'
 
 import {subscribeToNewVote} from 'Schema/subscription/vote'
 
-import './Home.scss'
+import './Search.scss'
 
 /******************************************* */
 /*         GRAPHQL QUERIES HANDLING          */
 /******************************************* */
 // Define Query / Mutation / Subscription
-const postsListQuery = gql`
- query {
-   posts {
+const postsBySearchQuery = gql`
+ query postsBySearchQuery($searchCriteria: String!){
+   postsBySearch (searchCriteria: $searchCriteria){
      id
      title
      imgUrl
@@ -30,10 +30,11 @@ const postsListQuery = gql`
  }
 `
 
-class Home extends React.Component {
+class Search extends React.Component {
 
   componentWillMount() {
-    console.log(' Home - componentWillMount')
+    console.log(' Search - componentWillMount')
+    console.log(this.props)
     this.props.subscribeToNewVote({
       id: 1,
     })
@@ -41,8 +42,8 @@ class Home extends React.Component {
 
   render() {
 
-    console.log('Start Home')
-    let { data: { loading, error, posts }, match } = this.props
+    console.log('Start Search')
+    let { data: { loading, error, postsBySearch }, match } = this.props
 
     if (loading) {
       console.log('loading')
@@ -51,7 +52,7 @@ class Home extends React.Component {
     if (error) {
       return <p>{error.message}</p>
     }
-    if (posts === null) {
+    if (postsBySearch === null) {
       return <p>No Data </p>
     }
 
@@ -59,7 +60,10 @@ class Home extends React.Component {
 
     return (
       <div className="home" >
-        <PostList list={posts} />
+        <div className="section header">
+          Search Results for: {this.props.location.state.searchCriteria}
+        </div>
+        <PostList list={postsBySearch} />
 
         <FixedActionBtn />
       </div>
@@ -68,9 +72,10 @@ class Home extends React.Component {
 }
 
 // Wrap react component(s) with data through High Order Component
-export default graphql(postsListQuery, {
+export default graphql(postsBySearchQuery, {
+  options: ({ location }) => ({ variables: { searchCriteria: location.state.searchCriteria } }),
   props: (props) => ({
     ...props,
     subscribeToNewVote: (params) => subscribeToNewVote(params, props)
   }),
-})(Home)
+})(Search)
