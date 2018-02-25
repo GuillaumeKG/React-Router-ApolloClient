@@ -13,7 +13,7 @@ class FixedActionBtn extends React.Component {
     return (
       <Button floating fab='vertical' icon='add' className='darkgreen' large style={{ bottom: '45px', right: '24px' }}>
         <Modal
-          header='Modal Header'
+          header='Create a Post'
           trigger={<Button floating icon='image' className='red' />}>
           <CreatePost />  
         </Modal>
